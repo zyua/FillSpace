@@ -1,0 +1,38 @@
+def generate_element_lengths(L, S1, S2, num_elements):
+    
+    """
+    Generates a list of element lengths to fill the length (L) from S1 to S2 with a smooth transition.
+    
+    Parameters:
+    L (float): The total length to be filled.
+    S1 (float): The initial element size on the left.
+    S2 (float): The final element size on the right.
+    S1 < S2.
+    num_elements (int): Number of elements.
+
+    Returns:
+    list: List of element lengths.
+
+    """
+
+    if num_elements < 2:
+        raise ValueError("Number of elements must be at least 2 to form a transition.")
+    
+    # Generate an arithmetic progression between S1 and S2 （gradually change element sizes) 
+
+    step = (S2 - S1) / (num_elements - 1)
+    element_lengths = [S1 + i * step for i in range(num_elements)]
+    
+    # Adjust the calculated total length to equal L
+
+    calculated_total_length = sum(element_lengths)
+    scaling_factor = L / calculated_total_length
+    element_lengths = [length * scaling_factor for length in element_lengths]
+    
+    return element_lengths
+
+# adjust the num_elements to determine the element_lengths
+ 
+element_lengths = generate_element_lengths(L, S1, S2, num_elements)
+
+print(element_lengths)
